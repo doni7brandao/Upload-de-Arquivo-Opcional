@@ -34,63 +34,6 @@ Este projeto contém um formulário HTML para upload opcional de arquivos e um s
 </body>
 </html>
 
-2. upload.php
+```
 
-<?php
-// Defina o diretório onde os arquivos serão armazenados
-$uploadDir = 'uploads/';
-
-// Verifique se o diretório existe, se não, crie-o
-if (!is_dir($uploadDir)) {
-    mkdir($uploadDir, 0755, true);
-}
-
-// Verifique se o arquivo foi enviado
-if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] == UPLOAD_ERR_OK) {
-    // Obtenha informações do arquivo
-    $fileTmpName = $_FILES['fileUpload']['tmp_name'];
-    $fileName = basename($_FILES['fileUpload']['name']);
-    $fileType = $_FILES['fileUpload']['type'];
-    $fileSize = $_FILES['fileUpload']['size'];
-    
-    // Defina os tipos de arquivos permitidos
-    $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
-    
-    // Verifique o tipo de arquivo
-    if (in_array($fileType, $allowedTypes)) {
-        // Defina o caminho completo do arquivo
-        $uploadFilePath = $uploadDir . $fileName;
-        
-        // Mova o arquivo para o diretório de uploads
-        if (move_uploaded_file($fileTmpName, $uploadFilePath)) {
-            echo "Arquivo enviado com sucesso: " . htmlspecialchars($fileName);
-        } else {
-            echo "Erro ao enviar o arquivo.";
-        }
-    } else {
-        echo "Tipo de arquivo não permitido. Apenas arquivos JPEG, JPG, PNG e PDF são aceitos.";
-    }
-} else {
-    echo "Nenhum arquivo enviado ou erro no envio.";
-}
-?>
-
-Configuração
-Crie o Diretório de Uploads
-
-Certifique-se de que o diretório uploads/ existe e tem permissões de escrita. Se o diretório não existir, o script PHP tentará criá-lo.
-
-Permissões de Arquivo
-
-Assegure-se de que o servidor web tem permissões adequadas para criar e escrever arquivos no diretório uploads/.
-
-Testando o Upload
-
-Abra o arquivo upload_form.html em um navegador e teste o envio de arquivos. O script upload.php processará o arquivo e exibirá uma mensagem de sucesso ou erro conforme apropriado.
-
-Licença
-Este projeto está licenciado sob a Licença MIT.
-
-
-Salve o conteúdo acima em um arquivo chamado `README.md` na raiz do seu diretório do projeto. Esse arquivo fornece uma visão geral do projeto, explicações sobre os arquivos, e instruções para configurar e testar o formulário de upload.
-
+### 2. `upload.php`
