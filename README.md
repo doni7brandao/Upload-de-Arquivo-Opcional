@@ -77,76 +77,8 @@ if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] == UPLOAD_ERR
     echo "Nenhum arquivo enviado ou erro no envio.";
 }
 ?>
+
 ```
-Claro, eu posso te ajudar com isso! Vou criar um exemplo de script PHP para um formulário que permite o upload opcional de arquivos nos formatos `.jpeg`, `.jpg`, `.png` e `.pdf`. O script fará a validação dos formatos dos arquivos e o upload.
-
-Aqui está o código:
-
-1. **Formulário HTML (upload_form.html)**
-
-```html
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Upload</title>
-</head>
-<body>
-    <h1>Upload de Arquivo Opcional</h1>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-        <label for="fileUpload">Escolha um arquivo (opcional):</label>
-        <input type="file" name="fileUpload" id="fileUpload" accept=".jpeg, .jpg, .png, .pdf">
-        <br><br>
-        <input type="submit" value="Enviar">
-    </form>
-</body>
-</html>
-```
-
-2. **Script PHP para Processar o Upload (upload.php)**
-
-```php
-<?php
-// Defina o diretório onde os arquivos serão armazenados
-$uploadDir = 'uploads/';
-
-// Verifique se o diretório existe, se não, crie-o
-if (!is_dir($uploadDir)) {
-    mkdir($uploadDir, 0755, true);
-}
-
-// Verifique se o arquivo foi enviado
-if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] == UPLOAD_ERR_OK) {
-    // Obtenha informações do arquivo
-    $fileTmpName = $_FILES['fileUpload']['tmp_name'];
-    $fileName = basename($_FILES['fileUpload']['name']);
-    $fileType = $_FILES['fileUpload']['type'];
-    $fileSize = $_FILES['fileUpload']['size'];
-    
-    // Defina os tipos de arquivos permitidos
-    $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
-    
-    // Verifique o tipo de arquivo
-    if (in_array($fileType, $allowedTypes)) {
-        // Defina o caminho completo do arquivo
-        $uploadFilePath = $uploadDir . $fileName;
-        
-        // Mova o arquivo para o diretório de uploads
-        if (move_uploaded_file($fileTmpName, $uploadFilePath)) {
-            echo "Arquivo enviado com sucesso: " . htmlspecialchars($fileName);
-        } else {
-            echo "Erro ao enviar o arquivo.";
-        }
-    } else {
-        echo "Tipo de arquivo não permitido. Apenas arquivos JPEG, JPG, PNG e PDF são aceitos.";
-    }
-} else {
-    echo "Nenhum arquivo enviado ou erro no envio.";
-}
-?>
-```
-
 ### Explicação
 
 1. **HTML Formulário (`upload_form.html`)**
